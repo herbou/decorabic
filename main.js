@@ -25,7 +25,7 @@ const Letters = [
     {letter: 'ج', alts: ['ج', 'چ', 'ڃ', 'ڄ']},
     {letter: 'ف', alts: ['ف', 'ڡ', '؋', 'ڡ']},
     {letter: 'ق', alts: ['ڡ', 'ق']},
-    {letter: 'ي', alts: ['ي', 'ې']},
+    {letter: 'ي', alts: ['ي', 'ې', 'ى']},
     {letter: 'ك', alts: ['ك', 'گ', 'ګ']}
 ]
 
