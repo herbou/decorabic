@@ -34,14 +34,33 @@ const Letters = [
 
 const text_UI   = document.querySelector(".text")
 const result_UI = document.querySelector(".result")
-const btn_UI    = document.querySelector(".btn")
+const btnTrans_UI    = document.querySelector(".btn")
+const btnCopy_UI     = document.querySelector(".btn.copy")
 
 const rangeExtendLength_UI    = document.querySelector(".inp-extend-length")
 const checkboxExtendRandom_UI = document.querySelector(".inp-extend-rand")
+const checkboxTransformAll_UI = document.querySelector(".inp-trans-all")
+
+
+const BTN_COPY_TEXT_BEFORE = "نسخ النص"
+const BTN_COPY_TEXT_AFTER  = "تم النسخ ✔"
 
 
 
-btn_UI.addEventListener("click", e => {
+btnCopy_UI.addEventListener("click", e => {
+    copyToClipboard(result_UI)
+    btnCopy_UI.innerText = BTN_COPY_TEXT_AFTER
+    btnCopy_UI.disabled = true
+    btnCopy_UI.classList.add("clicked")
+    setTimeout(()=>{
+        btnCopy_UI.innerText = BTN_COPY_TEXT_BEFORE
+        btnCopy_UI.disabled = false
+        btnCopy_UI.classList.remove("clicked")
+    }, 1100)
+})
+
+
+btnTrans_UI.addEventListener("click", e => {
     let text = text_UI.value
 
     let textExtended = ""
@@ -85,11 +104,14 @@ function extendWord(word){
 
 function transformLetters(text){
     let result = ""
+
+    const FROM = checkboxTransformAll_UI.checked ? 1 : 0
+
     text.split("").forEach(letter=>{
         let alt = Letters.find(a => a.letter == letter)
 
         if (alt)
-            result += alt.alts.getRandomItem()
+            result += alt.alts.getRandomItem(FROM, alt.alts.length-1)
         else
             result += letter
     })
@@ -106,13 +128,19 @@ function transformLetters(text){
 window.onload = e => {
     const extendLength = parseInt(localStorage.getItem("decorabic-settings-extendLength")) || 0
     const extendRandom = localStorage.getItem("decorabic-settings-isExtendRand") === "true"
+    const transformAll = localStorage.getItem("decorabic-settings-isTransformAll") === "true"
     rangeExtendLength_UI.value = extendLength
     checkboxExtendRandom_UI.checked = extendRandom
+    checkboxTransformAll_UI.checked = transformAll
 }
 
 // Save settings
-rangeExtendLength_UI.addEventListener("input",e=>localStorage.setItem("decorabic-settings-extendLength", rangeExtendLength_UI.value))
-checkboxExtendRandom_UI.addEventListener("input",e=>localStorage.setItem("decorabic-settings-isExtendRand", checkboxExtendRandom_UI.checked))
+rangeExtendLength_UI.addEventListener("input",e=>
+    localStorage.setItem("decorabic-settings-extendLength", rangeExtendLength_UI.value))
+checkboxExtendRandom_UI.addEventListener("input",e=>
+    localStorage.setItem("decorabic-settings-isExtendRand", checkboxExtendRandom_UI.checked))
+checkboxTransformAll_UI.addEventListener("input",e=>
+    localStorage.setItem("decorabic-settings-isTransformAll", checkboxTransformAll_UI.checked))
 
 
 
@@ -124,6 +152,14 @@ function rand(min, max) { // min and max included
   }
 
 
-Array.prototype.getRandomItem = function() {
-    return this[Math.floor(Math.random()*this.length)]
+Array.prototype.getRandomItem = function(from, to) {
+    return this[rand(from, to)]
 }
+
+
+function copyToClipboard(input) {
+    input.select()
+    input.setSelectionRange(0, 99999)
+    navigator.clipboard.writeText(input.value)
+    input.setSelectionRange(0,0)
+  }
