@@ -20,6 +20,7 @@ const Letters = [
     {letter: 'د', alts: ['د', 'ډ', 'ڊ', 'ډ']},
     {letter: 'ت', alts: ['ت', 'ټ', 'ٮ']},
     {letter: 'ث', alts: ['ث', 'ٿ', 'ٮ']},
+    {letter: 'ب', alts: ['ب', 'ٮ']},
     {letter: 'ة', alts: ['ة', 'ۀ']},
     {letter: 'خ', alts: ['خ', 'ځ']},
     {letter: 'ج', alts: ['ج', 'چ', 'ڃ', 'ڄ']},
