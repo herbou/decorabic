@@ -39,7 +39,7 @@ body {
 }
 .text , .result {
     width: 100%;
-    background-color: rgb(255 255 255 / 70%);
+    background-color: rgb(255, 255, 255);
     border: black solid 3px;
     border-radius: 0.6rem;
     font-size: 28px;
@@ -52,10 +52,11 @@ body {
 .credit {
     position: absolute;
     bottom: 16px;
-    left: 40%;
+    left: 50%;
     transform: translateX(-50%);
     text-wrap: nowrap;
     color: rgba(0, 0, 0, 0.411);
+    z-index: -1;
 }
 .credit a {
     color: rgba(0, 0, 0, 0.87);
