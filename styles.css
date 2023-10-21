@@ -1,10 +1,10 @@
 body {
     margin: 0;
     padding: 0;
-    color: rgba(255, 255, 255, 0.6);
-    background:#927446;
+    color: rgba(0, 0, 0, 0.6);
+    background-color: rgb(238, 238, 238);
     user-select: none;
-    font-family: Arial;
+    font-family: 'Cairo', sans-serif;
 }
 
 .btn {
@@ -12,17 +12,18 @@ body {
     font-size: 27px;
     border: none;
     font-weight: bold;
-    padding: 0.5rem 4rem;
-    background-color: #272727;
+    padding: 0.2rem 4rem;
+    background-color:rgb(136 73 220);
     color: rgb(255, 255, 255);
     cursor: pointer;
+    font-family: 'Cairo', sans-serif;
 }
 .btn:hover {
-    background-color: #202020;
+    background-color: rgb(126, 65, 206);
     color: rgb(224, 224, 224);
 }
 .btn:active {
-    background-color: #2b2b2b;
+    background-color: rgb(119, 61, 196);
     color: rgb(199, 199, 199);
 }
 
@@ -38,10 +39,10 @@ body {
 }
 .text , .result {
     width: 100%;
-    background-color: rgb(255 255 255 / 30%);
+    background-color: rgb(255 255 255 / 70%);
     border: black solid 3px;
-    border-radius: 0.2rem;
-    font-size: 35px;
+    border-radius: 0.6rem;
+    font-size: 28px;
     padding: 0.6rem;
     font-family: Arial !important;
     font-weight: bold;
@@ -54,23 +55,51 @@ body {
     left: 50%;
     transform: translateX(-50%);
     text-wrap: nowrap;
+    color: rgba(0, 0, 0, 0.411);
 }
 .credit a {
-    color: #fff;
+    color: rgba(0, 0, 0, 0.87);
 }
 
 
 
+
+
+/*------------------------------------------*/
+
+.settings {
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: rgb(209, 209, 209);
+    width: 100%;
+    max-width: 1000px;
+    align-items: start;
+    justify-content: start;
+    color: rgb(0, 0, 0);
+    font-size: 1.4rem;
+    border-radius: 0.6rem;
+}
+.option {
+    border-top: solid 1px rgba(0, 0, 0, 0.151);
+    padding: 1.4rem 0rem;
+}
+
+.option input {
+    direction: ltr;
+}
+
+
+/*------------------------------------------*/
 @media screen and (max-width: 600px) {
     .container {
         gap: 0.5rem;
         padding: 1rem;
     }
     .text , .result {
-        font-size: 24px;
+        font-size: 20px;
         padding: 8px;
     }
+    .settings {
+        font-size: 1rem;
+    }
 }
-
-
-
