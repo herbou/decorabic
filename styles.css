@@ -52,7 +52,7 @@ body {
 .credit {
     position: absolute;
     bottom: 16px;
-    left: 50%;
+    left: 40%;
     transform: translateX(-50%);
     text-wrap: nowrap;
     color: rgba(0, 0, 0, 0.411);
