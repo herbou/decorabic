@@ -1,9 +1,4 @@
-const letters = [
-    'ج','ح','خ','ه','ع','غ','ف','ق','ث','ص','ض',
-    'ط','ك','م','ن','ت','أ','إ','آ','ا','ل','ب','س','ش',
-    'د','ظ','ز','و','ة','ي','ئ','ى','ر','ؤ','ء','ذ',
-    'x','','ـ','مسح',
-]
+const nonExtendedLetters = ['و', 'ز', 'ر', 'ذ', 'د', 'أ', 'إ','آ', 'ا', ' ', 'ؤ','ء', 'ئ', 'ى', 'ة']
 
 const Letters = [
     {letter: 'ذ', alts: ['ذ', 'ڼ']},
@@ -76,8 +71,6 @@ btnTrans_UI.addEventListener("click", e => {
 function extendWord(word){
     let result = ""
     const _ = 'ـ'
-         
-    const nonExtendedLetters = ['و', 'ز', 'ر', 'ذ', 'د', 'أ', 'إ','آ', 'ا', ' ', 'ؤ','ء', 'ئ', 'ى', 'ة']
 
     for (let i = 0; i < word.length-1; i++) {
         const letter = word[i]
