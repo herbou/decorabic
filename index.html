@@ -5,19 +5,36 @@
     <meta http-equiv="Content-Type" content="te.t/html;charset=UTF-8">
     <title>Decorabic</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;1000&display=swap" rel="stylesheet">
     <script src="main.js" defer></script>
 </head>
 
 <body>
 
     <div class="container">
-        <textarea class="text" rows="4">إسرائيل عدوة البشرية</textarea>
+        <textarea class="text" rows="3">إسرائيل عدوة البشرية</textarea>
         <button class="btn">تحويل</button>
-        <textarea class="result" rows="4"></textarea>
+        <textarea class="result" rows="3"></textarea>
+    </div>
+    
+    <div class="container st">
+        <div class="settings">
+            <h2>الإعـــدادات</h2>
+            <div class="option">
+                تمديد الكلمات
+                <input class="inp-extend-length" type="range" min="0" max="18" value="0" step="1"/> 
+            </div>
+            <div class="option">
+                تمديد عشوائي
+                <input class="inp-extend-rand" type="checkbox" /> 
+            </div>
+        </div>
     </div>
 
     <span class="credit">
-        Made with love ❤️, by : <a href="https://herbou.github.io/me/" title="Hamza Herbou">Hamza Herbou</a>
+        Made with love ❤️, by : <a target="_blank" href="https://herbou.github.io/me/" title="Personal page">Hamza Herbou</a>
     </span>
 
 </body>
