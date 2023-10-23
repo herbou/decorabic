@@ -4,7 +4,6 @@ const nonExtendedLetters = [
 ]
 
 const Letters = [
-    {letter: 'ذ', alts: ['ذ', 'ڼ']},
     {letter: 'س', alts: ['س', 'ښ']},
     {letter: 'ش', alts: ['ش', 'ڜ']},
     {letter: 'ل', alts: ['ل', 'ࢦ']},
