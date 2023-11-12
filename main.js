@@ -1,32 +1,54 @@
-const nonExtendedLetters = [
-    'و', 'ز', 'ر', 'ذ', 'د', 'أ', 'إ'
-    ,'آ', 'ا', ' ', 'ؤ','ء', 'ئ', 'ى', 'ة'
+const extendableLetters = [
+    'ج','ح','خ','ه','ع','غ','ف','ق','ث','ص','ض',
+    'ط','ك','م','ن','ت','ل','ب','س','ش',
+    'ظ','ي'
 ]
 
-const Letters = [
-    {letter: 'س', alts: ['س', 'ښ']},
-    {letter: 'ش', alts: ['ش', 'ڜ']},
-    {letter: 'ل', alts: ['ل', 'ࢦ']},
-    {letter: 'م', alts: ['م', '۾', 'ݦ']},
-    {letter: 'ؤ', alts: ['ؤ', 'ۉ']},
-    {letter: 'ن', alts: ['ن', 'ڼ', 'ں']},
-    {letter: 'ظ', alts: ['ظ', 'ڟ']},
-    {letter: 'ص', alts: ['ص', 'ڝ']},
-    {letter: 'ز', alts: ['ز', 'ژ', 'ڙ']},
-    {letter: 'ر', alts: ['ر', 'ڔ', 'ړ']},
-    {letter: 'د', alts: ['د', 'ډ', 'ڊ', 'ډ']},
-    {letter: 'ت', alts: ['ت', 'ټ', 'ٮ']},
-    {letter: 'ث', alts: ['ث', 'ٿ', 'ٮ']},
-    {letter: 'ب', alts: ['ب', 'ٮ']},
-    {letter: 'ة', alts: ['ة', 'ۀ']},
-    {letter: 'خ', alts: ['خ', 'ځ']},
-    {letter: 'ج', alts: ['ج', 'چ', 'ڃ', 'ڄ']},
-    {letter: 'ف', alts: ['ف', 'ڡ', '؋', 'ڡ']},
-    {letter: 'ق', alts: ['ڡ', 'ق']},
-    {letter: 'ي', alts: ['ي', 'ې', 'ى']},
-    {letter: 'ئ', alts: ['ئ', 'ى']},
-    {letter: 'ك', alts: ['ك', 'گ', 'ګ']}
+const dotLessLetters = [
+    {letter: 'ذ', alts: ['د']},
+    {letter: 'ش', alts: ['س']},
+    {letter: 'ؤ', alts: ['و']},
+    {letter: 'ن', alts: ['ں']},
+    {letter: 'ظ', alts: ['ط']},
+    {letter: 'ض', alts: ['ص']},
+    {letter: 'ز', alts: ['ر']},
+    {letter: 'ت', alts: ['ٮ']},
+    {letter: 'ث', alts: ['ٮ']},
+    {letter: 'ب', alts: ['ٮ']},
+    {letter: 'ة', alts: ['ه']},
+    {letter: 'خ', alts: ['ح']},
+    {letter: 'ج', alts: ['ح']},
+    {letter: 'ف', alts: ['ڡ']},
+    {letter: 'ق', alts: ['ڡ']},
+    {letter: 'ي', alts: ['ى']},
+    {letter: 'ئ', alts: ['ى']}
 ]
+
+const weirdLetters = [
+    {letter: 'ذ', alts: ['ڼ']},
+    {letter: 'س', alts: ['ښ']},
+    {letter: 'ش', alts: ['ڜ']},
+    {letter: 'ل', alts: ['ࢦ']},
+    {letter: 'م', alts: ['۾', 'ݦ']},
+    {letter: 'ؤ', alts: ['ۉ']},
+    {letter: 'ن', alts: ['ڼ']},
+    {letter: 'ظ', alts: ['ڟ']},
+    {letter: 'ص', alts: ['ڝ']},
+    {letter: 'ز', alts: ['ژ', 'ڙ']},
+    {letter: 'ر', alts: ['ڔ', 'ړ']},
+    {letter: 'د', alts: ['ډ', 'ڊ', 'ډ']},
+    {letter: 'ت', alts: ['ټ']},
+    {letter: 'ة', alts: ['ۀ']},
+    {letter: 'خ', alts: ['ځ']},
+    {letter: 'ج', alts: ['چ', 'ڃ', 'ڄ']},
+    {letter: 'ف', alts: ['؋']},
+    {letter: 'ي', alts: ['ې']},
+    {letter: 'ك', alts: ['گ', 'ګ']}
+]
+
+const BTN_COPY_TEXT_BEFORE = "نسخ النص"
+const BTN_COPY_TEXT_AFTER  = "تم النسخ ✔"
+
 
 
 const text_UI   = document.querySelector(".text")
@@ -36,11 +58,13 @@ const btnCopy_UI     = document.querySelector(".btn.copy")
 
 const rangeExtendLength_UI    = document.querySelector(".inp-extend-length")
 const checkboxExtendRandom_UI = document.querySelector(".inp-extend-rand")
-const checkboxTransformAll_UI = document.querySelector(".inp-trans-all")
+const checkboxDotless_UI      = document.querySelector(".inp-dotless")
+const checkboxWeird_UI        = document.querySelector(".inp-weird")
 
-
-const BTN_COPY_TEXT_BEFORE = "نسخ النص"
-const BTN_COPY_TEXT_AFTER  = "تم النسخ ✔"
+let useRandomExtend   = false
+let extendLength      = 0
+let useDotLessLetters = false
+let useWeirdLetters   = false
 
 
 
@@ -59,34 +83,40 @@ btnCopy_UI.addEventListener("click", e => {
 
 btnTrans_UI.addEventListener("click", e => {
     let text = text_UI.value
+    useRandomExtend   = checkboxExtendRandom_UI.checked
+    extendLength      = rangeExtendLength_UI.value
+    useDotLessLetters = checkboxDotless_UI.checked
+    useWeirdLetters   = checkboxWeird_UI.checked
 
-    let textExtended = ""
-    text.split(' ').forEach(word => textExtended+=extendWord(word)+' ')
-
-    text = textExtended
-    text = transformLetters(text)
+    text = extendSentence(text)
+    text = transformAllLetters(text)
 
     result_UI.value = text
 })
 
 
+function extendSentence(sentence){
+    let textExtended = ""
+    sentence.split(' ').forEach(word => textExtended+=extendWord(word)+' ')
+    return textExtended
+}
+
+
 function extendWord(word){
     let result = ""
-    const _ = 'ـ'
-
+        
     for (let i = 0; i < word.length-1; i++) {
         const letter = word[i]
         result += letter
 
-        const isNonExtendedLetter = nonExtendedLetters.find(l=>l==letter)
-        if (!isNonExtendedLetter) {
-            len = rangeExtendLength_UI.value || 0
+        if (isLetterExtendable(letter)) {
+            let length = extendLength
 
-            if (checkboxExtendRandom_UI.checked)
-                len = rand(0, len)
+            if (useRandomExtend)
+                length = rand(0, length)
 
-            for (let j = 0; j < len; j++)
-                result += _
+            for (let j = 0; j < length; j++)
+                result += 'ـ'
         }
         
     }
@@ -97,45 +127,71 @@ function extendWord(word){
 }
 
 
-function transformLetters(text){
+function transformAllLetters(text){
     let result = ""
 
-    const FROM = checkboxTransformAll_UI.checked ? 1 : 0
-
     text.split("").forEach(letter=>{
-        let alt = Letters.find(a => a.letter == letter)
-
-        if (alt)
-            result += alt.alts.getRandomItem(FROM, alt.alts.length-1)
-        else
+        if (!useDotLessLetters && !useWeirdLetters)
             result += letter
+
+        else if (useDotLessLetters && !useWeirdLetters)
+            result += transformLetter(letter, dotLessLetters)
+
+        else if (!useDotLessLetters && useWeirdLetters)
+            result += transformLetter(letter, weirdLetters)
+
+        else if (useDotLessLetters && useWeirdLetters){
+            const r = rand(0, 1)
+            result += transformLetter(letter, r==0? weirdLetters:dotLessLetters)
+        }
     })
     return result
 }
 
+function transformLetter(letter, lettersAlts){
+    let alt = lettersAlts.find(_alt => _alt.letter == letter)
+
+        if (alt)
+            return alt.alts.getRandomItem(0, alt.alts.length-1)
+        else
+            return letter
+}
 
 
+function isLetterExtendable(letter){
+    return extendableLetters.find(l=>l==letter)
+}
 
 
 
 
 // Load Settings
 window.onload = e => {
-    const extendLength = parseInt(localStorage.getItem("decorabic-settings-extendLength")) || 0
-    const extendRandom = localStorage.getItem("decorabic-settings-isExtendRand") === "true"
-    const transformAll = localStorage.getItem("decorabic-settings-isTransformAll") === "true"
-    rangeExtendLength_UI.value = extendLength
-    checkboxExtendRandom_UI.checked = extendRandom
-    checkboxTransformAll_UI.checked = transformAll
+    rangeExtendLength_UI.value 
+      = parseInt(localStorage.getItem("decorabic-settings-extendLength")) || 0
+      
+    checkboxExtendRandom_UI.checked 
+      = localStorage.getItem("decorabic-settings-isExtendRand") === "true"
+
+    checkboxDotless_UI.checked 
+      = localStorage.getItem("decorabic-settings-isDotless") === "true"
+
+    checkboxWeird_UI.checked 
+      = localStorage.getItem("decorabic-settings-isWeird") === "true"
 }
 
 // Save settings
 rangeExtendLength_UI.addEventListener("input",e=>
     localStorage.setItem("decorabic-settings-extendLength", rangeExtendLength_UI.value))
+
 checkboxExtendRandom_UI.addEventListener("input",e=>
     localStorage.setItem("decorabic-settings-isExtendRand", checkboxExtendRandom_UI.checked))
-checkboxTransformAll_UI.addEventListener("input",e=>
-    localStorage.setItem("decorabic-settings-isTransformAll", checkboxTransformAll_UI.checked))
+
+checkboxDotless_UI.addEventListener("input",e=>
+    localStorage.setItem("decorabic-settings-isDotless", checkboxDotless_UI.checked))
+
+checkboxWeird_UI.addEventListener("input",e=>
+    localStorage.setItem("decorabic-settings-isWeird", checkboxWeird_UI.checked))
 
 
 
@@ -144,7 +200,7 @@ checkboxTransformAll_UI.addEventListener("input",e=>
 
 function rand(min, max) { // min and max included 
     return Math.floor(Math.random() * (max - min + 1) + min)
-  }
+}
 
 
 Array.prototype.getRandomItem = function(from, to) {
