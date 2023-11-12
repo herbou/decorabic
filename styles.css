@@ -104,6 +104,12 @@ body {
     padding: 0.5rem 0rem;
 }
 
+.option label {
+    display: inline-block;
+    width: 150px;
+}
+
+
 .option input {
     direction: ltr;
 }
