@@ -26,7 +26,7 @@ const dotLessLetters = [
 
 const weirdLetters = [
     {letter: 'ذ', alts: ['ڼ']},
-    {letter: 'س', alts: ['ښ']},
+    {letter: 'س', alts: ['ښ','ٮٮٮ']},
     {letter: 'ش', alts: ['ڜ']},
     {letter: 'ل', alts: ['ࢦ']},
     {letter: 'م', alts: ['۾', 'ݦ']},
