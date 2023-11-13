@@ -6,7 +6,8 @@ const extendableLetters = [
 
 const dotLessLetters = [
     {letter: 'ذ', alts: ['د']},
-    {letter: 'ش', alts: ['س']},
+    {letter: 'ش', alts: ['ٮٮں']},
+    {letter: 'س', alts: ['ٮٮں']},
     {letter: 'ؤ', alts: ['و']},
     {letter: 'ن', alts: ['ں']},
     {letter: 'ظ', alts: ['ط']},
@@ -26,7 +27,7 @@ const dotLessLetters = [
 
 const weirdLetters = [
     {letter: 'ذ', alts: ['ڼ']},
-    {letter: 'س', alts: ['ٮٮٮ']},
+    {letter: 'س', alts: ['ٮٮں']},
     {letter: 'ش', alts: ['ښ','ڜ']},
     {letter: 'ل', alts: ['ࢦ']},
     {letter: 'م', alts: ['۾', 'ݦ']},
